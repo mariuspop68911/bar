@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BarApplication</string>
+    <string name="action_settings">Edit products</string>
+</resources>
