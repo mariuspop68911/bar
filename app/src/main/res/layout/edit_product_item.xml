@@ -23,7 +23,15 @@
         android:layout_marginStart="5dp"
         android:gravity="start|center_vertical"
         android:textStyle="bold"/>
-
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.1"
+        android:gravity="start|center_vertical"
+        android:text="12"
+        android:textStyle="bold" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

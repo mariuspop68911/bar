@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Mark order as:"
+        android:hint="Doriti sa finalizati comanda?"
         android:gravity="center"/>
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/list_view_green"
-            android:text="Ready"
+            android:text="Finalizare"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"

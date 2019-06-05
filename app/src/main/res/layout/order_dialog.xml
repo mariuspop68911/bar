@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Client name"
+        android:hint="Nume client"
         android:gravity="center"/>
 
     <Button
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/list_view_red"
-        android:text="Order"
+        android:text="Comanda"
         android:gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"

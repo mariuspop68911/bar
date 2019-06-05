@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Mark order as:"
+        android:hint="Modificati comanda:"
         android:gravity="center"/>
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/list_view_red"
-            android:text="Delivered"
+            android:text="Livrata"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"
@@ -36,7 +36,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/list_view_red"
-            android:text="Canceled"
+            android:text="Anulata"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"

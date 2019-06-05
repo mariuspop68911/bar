@@ -44,17 +44,23 @@ public class EditMenyActivity extends AppCompatActivity implements OnProductsRec
                 dialog.setTitle("Add product");
 
                 final EditText edit = dialog.findViewById(R.id.edit);
+                final EditText price = dialog.findViewById(R.id.price);
                 Button add = dialog.findViewById(R.id.add_dialog_button);
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        try{
                         if (edit.getText() != null && !edit.getText().toString().isEmpty()) {
                             Product product = new Product();
                             product.setId((int) Calendar.getInstance().getTimeInMillis());
                             product.setName(edit.getText().toString());
+                            product.setPrice( Double.parseDouble(price.getText().toString()));
                             WebManager.addProduct(product);
                             WebManager.requestProducts(onProductsReceived);
                             dialog.dismiss();
+                        }}
+                        catch (Exception ex){
+
                         }
 
                     }

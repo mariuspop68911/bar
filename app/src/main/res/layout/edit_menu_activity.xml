@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Edit menu"
+        android:text="Modificare Meniu"
         android:textSize="25sp"
         android:textStyle="bold" />
 
