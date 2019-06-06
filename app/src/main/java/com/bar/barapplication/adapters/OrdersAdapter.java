@@ -113,7 +113,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
         viewHolder.clientName.setText(order.getClientName());
         String status = "Not ready";
         if (order.getStatus() == Constants.ORDER_CREATED) {
-            status = "Bucatarie";
+            status = "Nepreluata";
         } else if (order.getStatus() == Constants.ORDER_COOKING) {
             status = "In Pregatire";
         } else if (order.getStatus() == Constants.ORDER_READY) {

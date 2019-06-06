@@ -14,13 +14,13 @@ import retrofit2.http.POST;
 
 public interface GetDataService {
 
-    @GET("/api/orders/GetByStatus?orderStatus=0")
+    @GET("/api/orders/Get")
     Call<OrderResponse> getCreatedOrders();
 
-    @GET("/api/orders/GetByStatus?orderStatus=1")
+    @GET("/api/orders/Get")
     Call<OrderResponse> getCookingOrders();
 
-    @GET("/api/orders/GetByStatus?orderStatus=2")
+    @GET("/api/orders/GetDisplayOrders")
     Call<OrderResponse> getReadyOrders();
 
     @GET("/api/orders/get")

@@ -33,6 +33,7 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
         //TextView clientName;
         TextView orderNumber;
         LinearLayout layout;
+        TextView status;
     }
 
     public KitchenOrdersAdapter(List<Order> data, Context context, ArrayList<Product> products) {
@@ -69,7 +70,7 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
             //viewHolder.clientName = convertView.findViewById(R.id.client_name);
             viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
             viewHolder.layout = convertView.findViewById(R.id.orderDetailLayout);
-
+            viewHolder.status=convertView.findViewById(R.id.status);
             for (OrderDetail detail : order.getDetails()) {
                 for (Product product : products) {
                     if(product.getId() == detail.getItemId()) {
@@ -83,33 +84,104 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
                     }
                 }
             }
+            if (order.getStatus() == Constants.ORDER_CREATED) {
+                convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_red));
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(mContext);
+                        dialog.setContentView(R.layout.mark_kitchen_order_dialog);
 
+                        Button ready = dialog.findViewById(R.id.ready);
+                        ready.setText("Comanda Preluata");
+                        TextView text = dialog.findViewById(R.id.text);
+                        text.setText("Doriti sa marcati comanda ca si preluata?");
+                        ready.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                order.setStatus(Constants.ORDER_COOKING);
+                                WebManager.changeStatus(new StatusBody(Constants.ORDER_COOKING, order.getOrderId()));
+                                notifyDataSetChanged();
+                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            } else if (order.getStatus() == Constants.ORDER_COOKING) {
+                convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(mContext);
+                        dialog.setContentView(R.layout.mark_kitchen_order_dialog);
+
+                        Button ready = dialog.findViewById(R.id.ready);
+                        ready.setText("Comanda Finalizata");
+                        TextView text = dialog.findViewById(R.id.text);
+                        text.setText("Doriti sa marcati comanda ca si finalizata?");
+                        ready.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                order.setStatus(Constants.ORDER_READY);
+                                WebManager.changeStatus(new StatusBody(Constants.ORDER_READY, order.getOrderId()));
+                                notifyDataSetChanged();
+                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
+            else if (order.getStatus() == Constants.ORDER_READY) {
+                convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(mContext);
+                        dialog.setContentView(R.layout.mark_kitchen_order_dialog);
+
+                        Button ready = dialog.findViewById(R.id.ready);
+                        ready.setText("Comanda Preluata");
+                        TextView text = dialog.findViewById(R.id.text);
+                        text.setText("Doriti sa marcati comanda ca si preluata?");
+                        ready.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                order.setStatus(Constants.ORDER_COOKING);
+                                WebManager.changeStatus(new StatusBody(Constants.ORDER_COOKING, order.getOrderId()));
+                                notifyDataSetChanged();
+                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
             convertView.setTag(viewHolder);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final Dialog dialog = new Dialog(mContext);
-                    dialog.setContentView(R.layout.mark_kitchen_order_dialog);
 
-                    Button ready = dialog.findViewById(R.id.ready);
-                    ready.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            order.setStatus(Constants.ORDER_READY);
-                            WebManager.changeStatus(new StatusBody(Constants.ORDER_READY, order.getOrderId()));
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                }
-            });
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         //viewHolder.clientName.setText(order.getClientName());
         viewHolder.orderNumber.setText(String.valueOf(order.getOrderNumber()));
+        String status = "Not ready";
+        if (order.getStatus() == Constants.ORDER_CREATED) {
+            status = "Nepreluata";
+        } else if (order.getStatus() == Constants.ORDER_COOKING) {
+            status = "In Pregatire";
+        } else if (order.getStatus() == Constants.ORDER_READY) {
+            status = "Pregatita";
+        } else if (order.getStatus() == Constants.ORDER_DELIVERED) {
+            status = "Livrata";
+        } else if (order.getStatus() == Constants.ORDER_CANCELED) {
+            status = "Anulata";
+        }
+        viewHolder.status.setText(status);
         return convertView;
     }
 }

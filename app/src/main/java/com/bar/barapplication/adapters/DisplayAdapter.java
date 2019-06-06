@@ -60,16 +60,21 @@ public class DisplayAdapter extends ArrayAdapter<Order> implements View.OnClickL
         viewHolder.clientName.setText(order.getClientName());
         String status = "Not ready";
         if (order.getStatus() == Constants.ORDER_CREATED) {
-            status = "Not ready";
+            status = "Nepreluata";
         } else if (order.getStatus() == Constants.ORDER_COOKING) {
-            status = "Cooking";
+            status = "In Pregatire";
         } else if (order.getStatus() == Constants.ORDER_READY) {
-            status = "Ready";
+            status = "Pregatita";
         } else if (order.getStatus() == Constants.ORDER_DELIVERED) {
-            status = "Delivered";
+            status = "Livrata";
         } else if (order.getStatus() == Constants.ORDER_CANCELED) {
-            status = "Canceled";
+            status = "Anulata";
         }
+
+        if (order.getStatus() == Constants.ORDER_COOKING) {
+            convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));}
+        else if (order.getStatus() == Constants.ORDER_READY) {
+            convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));}
         viewHolder.orderStatus.setText(status);
         viewHolder.orderNumber.setText(String.valueOf(order.getOrderNumber()));
         return convertView;
