@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bar.barapplication.Constants;
 import com.bar.barapplication.R;
 import com.bar.barapplication.models.Order;
+import com.bar.barapplication.models.OrderDetail;
 import com.bar.barapplication.models.Product;
 import com.bar.barapplication.models.StatusBody;
 import com.bar.barapplication.web.WebManager;
@@ -29,6 +29,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
         TextView clientName;
         TextView orderStatus;
         TextView orderNumber;
+        TextView orderPrice;
     }
 
     public OrdersAdapter(List<Order> data, Context context) {
@@ -56,6 +57,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
             viewHolder.clientName = convertView.findViewById(R.id.client_name);
             viewHolder.orderStatus = convertView.findViewById(R.id.order_status);
             viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
+            viewHolder.orderPrice = convertView.findViewById(R.id.price);
             convertView.setTag(viewHolder);
 
             if (order.getStatus() == Constants.ORDER_READY) {
@@ -97,19 +99,29 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        double orderPrice = 0;
+        //for (OrderDetail detail : order.getDetails()) {
+        //    for (Product product : products) {
+        //        if(product.getId() == detail.getItemId()) {
+        //            orderPrice += product.getPrice();
+        //        }
+         //   }
+        //}
 
+        orderPrice = 55.99;
+        viewHolder.orderPrice.setText(Double.toString(orderPrice)) ;
         viewHolder.clientName.setText(order.getClientName());
         String status = "Not ready";
         if (order.getStatus() == Constants.ORDER_CREATED) {
-            status = "Not ready";
+            status = "Bucatarie";
         } else if (order.getStatus() == Constants.ORDER_COOKING) {
-            status = "Cooking";
+            status = "In Pregatire";
         } else if (order.getStatus() == Constants.ORDER_READY) {
-            status = "Ready";
+            status = "Pregatita";
         } else if (order.getStatus() == Constants.ORDER_DELIVERED) {
-            status = "Delivered";
+            status = "Livrata";
         } else if (order.getStatus() == Constants.ORDER_CANCELED) {
-            status = "Canceled";
+            status = "Anulata";
         }
         viewHolder.orderStatus.setText(status);
         viewHolder.orderNumber.setText(String.valueOf(order.getOrderNumber()));
