@@ -33,6 +33,7 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
     private static class ViewHolder {
         ImageView picture;
         TextView name;
+        TextView price;
     }
 
     public EditProductsAdapter(List<Product> data, Context context, EditProductsView view) {
@@ -60,7 +61,7 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
             convertView = inflater.inflate(R.layout.edit_product_item, parent, false);
             viewHolder.picture = convertView.findViewById(R.id.picture);
             viewHolder.name = convertView.findViewById(R.id.name);
-
+            viewHolder.price = convertView.findViewById(R.id.price);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,6 +99,8 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
 
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
+        String aaa = String.valueOf( product.getPrice());
+        viewHolder.price.setText(aaa);
         return convertView;
     }
 }
