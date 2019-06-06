@@ -14,6 +14,8 @@ public class Order {
     private String clientName;
     @SerializedName("Status")
     private int status;
+    @SerializedName("Details")
+    private OrderDetail[] details;
 
     public int getOrderNumber() {
         return orderNumber;
@@ -53,5 +55,13 @@ public class Order {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public OrderDetail[] getDetails() {
+        return details;
+    }
+
+    public void setDetails(OrderDetail[] details) {
+        this.details = details;
     }
 }

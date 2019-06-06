@@ -2,6 +2,7 @@ package com.bar.barapplication.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bar.barapplication.Constants;
 import com.bar.barapplication.R;
 import com.bar.barapplication.models.Order;
+import com.bar.barapplication.models.OrderDetail;
 import com.bar.barapplication.models.Product;
 import com.bar.barapplication.models.StatusBody;
 import com.bar.barapplication.web.WebManager;
@@ -28,7 +30,7 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
     private ArrayList<Product> products;
 
     private static class ViewHolder {
-        TextView clientName;
+        //TextView clientName;
         TextView orderNumber;
         LinearLayout layout;
     }
@@ -64,19 +66,20 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.kitchen_order_item, parent, false);
-            viewHolder.clientName = convertView.findViewById(R.id.client_name);
+            //viewHolder.clientName = convertView.findViewById(R.id.client_name);
             viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
-            viewHolder.layout = convertView.findViewById(R.id.layout);
+            viewHolder.layout = convertView.findViewById(R.id.orderDetailLayout);
 
-            for (Integer productId : order.getProductIds()) {
+            for (OrderDetail detail : order.getDetails()) {
                 for (Product product : products) {
-                    if(product.getId() == productId) {
+                    if(product.getId() == detail.getItemId()) {
                         TextView textView = new TextView(mContext);
-                        textView.setText(product.getName());
+                        textView.setText(product.getName() + " - Cantitate: " + detail.getCount());
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         params.setMargins(20,0,0,0);
                         textView.setLayoutParams(params);
-                        viewHolder.layout .addView(textView);
+                        textView.setTypeface(null, Typeface.BOLD);
+                        viewHolder.layout.addView(textView);
                     }
                 }
             }
@@ -105,7 +108,7 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.clientName.setText(order.getClientName());
+        //viewHolder.clientName.setText(order.getClientName());
         viewHolder.orderNumber.setText(String.valueOf(order.getOrderNumber()));
         return convertView;
     }
