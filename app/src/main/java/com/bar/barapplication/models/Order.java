@@ -16,6 +16,8 @@ public class Order {
     private int status;
     @SerializedName("Details")
     private OrderDetail[] details;
+    @SerializedName("Price")
+    private double price;
 
     public int getOrderNumber() {
         return orderNumber;
@@ -63,5 +65,13 @@ public class Order {
 
     public void setDetails(OrderDetail[] details) {
         this.details = details;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

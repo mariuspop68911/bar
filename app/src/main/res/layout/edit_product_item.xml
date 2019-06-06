@@ -17,7 +17,7 @@
 
     <TextView android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.4"
         android:layout_height="match_parent"
         android:text="Pizza cu mere"
         android:layout_marginStart="5dp"
@@ -28,13 +28,23 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
-        android:layout_weight="0.1"
-        android:gravity="start|center_vertical"
-        android:text="12"
+        android:layout_weight="0.2"
+        android:gravity="end|center_vertical"
+        android:text="123.78"
         android:textStyle="bold" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1"
+        android:textSize="7sp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="start|center_vertical"
+        android:text="RON"/>
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.1"
         android:layout_gravity="end|center_vertical"
         app:srcCompat="@drawable/trash"/>
 

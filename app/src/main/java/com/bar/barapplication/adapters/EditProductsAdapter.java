@@ -19,6 +19,8 @@ import com.bar.barapplication.models.DeleteProductBody;
 import com.bar.barapplication.models.Product;
 import com.bar.barapplication.web.WebManager;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +101,8 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
 
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
-        String aaa = String.valueOf( product.getPrice());
+        NumberFormat format = new DecimalFormat("0.#");
+        String aaa = String.valueOf(format.format(product.getPrice()));
         viewHolder.price.setText(aaa);
         return convertView;
     }

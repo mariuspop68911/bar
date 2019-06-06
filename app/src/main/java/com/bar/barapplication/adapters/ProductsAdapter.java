@@ -13,6 +13,8 @@ import com.bar.barapplication.AddOrderView;
 import com.bar.barapplication.R;
 import com.bar.barapplication.models.Product;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
     private static class ViewHolder {
         ImageView picture;
         TextView name;
+        TextView price;
         ImageButton add;
         ImageButton remove;
     }
@@ -60,6 +63,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
             viewHolder.name = convertView.findViewById(R.id.name);
             viewHolder.add = convertView.findViewById(R.id.plus);
             viewHolder.remove = convertView.findViewById(R.id.minus);
+            viewHolder.price = convertView.findViewById(R.id.price);
 
             orderedProductsAdapter = new OrderedProductsAdapter(orderedProducts, mContext, view);
             view.getOrderedProductsList().setAdapter(orderedProductsAdapter);
@@ -109,6 +113,9 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
 
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
+        NumberFormat format = new DecimalFormat("0.#");
+        String aaa = String.valueOf(format.format(product.getPrice()));
+        viewHolder.price.setText(aaa);
         return convertView;
     }
 }

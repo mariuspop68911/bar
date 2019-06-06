@@ -17,6 +17,8 @@ import com.bar.barapplication.models.Product;
 import com.bar.barapplication.models.StatusBody;
 import com.bar.barapplication.web.WebManager;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 
@@ -62,6 +64,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
 
             if (order.getStatus() == Constants.ORDER_READY) {
                 convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
+            } else if (order.getStatus() == Constants.ORDER_CREATED) {
+                convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_red));
             } else {
                 convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
             }
@@ -99,17 +103,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        double orderPrice = 0;
-        //for (OrderDetail detail : order.getDetails()) {
-        //    for (Product product : products) {
-        //        if(product.getId() == detail.getItemId()) {
-        //            orderPrice += product.getPrice();
-        //        }
-         //   }
-        //}
-
-        orderPrice = 55.99;
-        viewHolder.orderPrice.setText(Double.toString(orderPrice)) ;
+        NumberFormat format = new DecimalFormat("0.#");
+        String aaa = String.valueOf(format.format(order.getPrice()));
+        viewHolder.orderPrice.setText(aaa) ;
         viewHolder.clientName.setText(order.getClientName());
         String status = "Not ready";
         if (order.getStatus() == Constants.ORDER_CREATED) {

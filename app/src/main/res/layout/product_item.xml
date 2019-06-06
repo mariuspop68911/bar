@@ -17,7 +17,7 @@
 
     <TextView android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.35"
         android:layout_height="match_parent"
         android:text="Pizza cu mere"
         android:layout_marginStart="5dp"
@@ -30,9 +30,19 @@
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:layout_weight="0.1"
-        android:gravity="start|center_vertical"
+        android:gravity="end|center_vertical"
         android:text="12"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.05"
+        android:textSize="7sp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="start|center_vertical"
+        android:text="RON"/>
 
     <LinearLayout
         android:layout_width="9dp"
@@ -46,15 +56,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            app:srcCompat="@drawable/ic_minus" />
+            android:src="@drawable/ic_minus" />
 
         <ImageButton
             android:id="@+id/plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:background="@null"
-            app:srcCompat="@drawable/ic_plus" />
+            android:src="@drawable/ic_plus" />
 
     </LinearLayout>
 </LinearLayout>

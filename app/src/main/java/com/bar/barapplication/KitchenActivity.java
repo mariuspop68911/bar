@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class KitchenActivity extends AppCompatActivity implements OnOrdersReceived.OnOrdersStatusReceived, OnProductsReceived {
+public class KitchenActivity extends AppCompatActivity implements OnOrdersReceived.OnAllOrdersReceived, OnProductsReceived {
 
     private Context context;
     private ListView ordersList;
-    private static OnOrdersReceived.OnOrdersStatusReceived onOrdersStatusReceived;
+    private static OnOrdersReceived.OnAllOrdersReceived onOrdersReceived;
     private ArrayList<Product> products;
     private KitchenOrdersAdapter adapter;
     private TextView emptyElement;
@@ -37,7 +37,7 @@ public class KitchenActivity extends AppCompatActivity implements OnOrdersReceiv
         setContentView(R.layout.activity_kitchen);
 
         context = this;
-        onOrdersStatusReceived = this;
+        onOrdersReceived = this;
         ordersList = findViewById(R.id.kitchen_orders_list);
         emptyElement = findViewById(R.id.emptyElement);
         WebManager.requestProducts(this);
@@ -47,15 +47,20 @@ public class KitchenActivity extends AppCompatActivity implements OnOrdersReceiv
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                WebManager.requestOrdersByStatus(onOrdersStatusReceived, Constants.ORDER_CREATED);
+                WebManager.requestOrders(onOrdersReceived);
             }
         };
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
     }
 
     @Override
-    public void onOrdersStatusReceived(ArrayList<Order> orders) {
+    public void onAllProductsReceived(ArrayList<Product> products) {
+        this.products = products;
+        pool();
+    }
 
+    @Override
+    public void onAllOrdersReceived(ArrayList<Order> orders) {
         if (orders != null && !orders.isEmpty()) {
             Utils utils = new Utils();
             if (!new Utils().equalLists(orders, this.orders)) {
@@ -70,11 +75,5 @@ public class KitchenActivity extends AppCompatActivity implements OnOrdersReceiv
             emptyElement.setVisibility(View.VISIBLE);
             ordersList.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void onAllProductsReceived(ArrayList<Product> products) {
-        this.products = products;
-        pool();
     }
 }

@@ -18,7 +18,6 @@ public class ChooseActivity extends AppCompatActivity {
 
         context = this;
         String appRole = PreferencesManager.getStringFromPrefs(this, Constants.APP_ROLE);
-        appRole = null; //Vladi
         if (appRole != null) {
             if (appRole.equals(Constants.APP_ROLE_BAR)) {
                 Intent intent = new Intent(this, MainActivity.class);

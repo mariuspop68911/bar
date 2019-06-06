@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -56,7 +57,14 @@ public class EditMenyActivity extends AppCompatActivity implements OnProductsRec
                             product.setName(edit.getText().toString());
                             product.setPrice( Double.parseDouble(price.getText().toString()));
                             WebManager.addProduct(product);
-                            WebManager.requestProducts(onProductsReceived);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    WebManager.requestProducts(onProductsReceived);
+                                }
+                            }, 300);
+
                             dialog.dismiss();
                         }}
                         catch (Exception ex){

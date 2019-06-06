@@ -67,15 +67,16 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.kitchen_order_item, parent, false);
+            final View finalConvertView = convertView;
             //viewHolder.clientName = convertView.findViewById(R.id.client_name);
             viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
             viewHolder.layout = convertView.findViewById(R.id.orderDetailLayout);
-            viewHolder.status=convertView.findViewById(R.id.status);
+            viewHolder.status = convertView.findViewById(R.id.status);
             for (OrderDetail detail : order.getDetails()) {
                 for (Product product : products) {
                     if(product.getId() == detail.getItemId()) {
                         TextView textView = new TextView(mContext);
-                        textView.setText(product.getName() + " - Cantitate: " + detail.getCount());
+                        textView.setText(product.getName() + " x" + detail.getCount());
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         params.setMargins(20,0,0,0);
                         textView.setLayoutParams(params);
@@ -99,10 +100,10 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
                         ready.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                order.setStatus(Constants.ORDER_COOKING);
+                                //order.setStatus(Constants.ORDER_COOKING);
                                 WebManager.changeStatus(new StatusBody(Constants.ORDER_COOKING, order.getOrderId()));
-                                notifyDataSetChanged();
-                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                //finalConvertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                //notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         });
@@ -124,18 +125,17 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
                         ready.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                order.setStatus(Constants.ORDER_READY);
+                                //order.setStatus(Constants.ORDER_READY);
                                 WebManager.changeStatus(new StatusBody(Constants.ORDER_READY, order.getOrderId()));
-                                notifyDataSetChanged();
-                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
+                                //finalConvertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
+                                //notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         });
                         dialog.show();
                     }
                 });
-            }
-            else if (order.getStatus() == Constants.ORDER_READY) {
+            } else if (order.getStatus() == Constants.ORDER_READY) {
                 convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,10 +150,10 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
                         ready.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                order.setStatus(Constants.ORDER_COOKING);
+                                //order.setStatus(Constants.ORDER_COOKING);
                                 WebManager.changeStatus(new StatusBody(Constants.ORDER_COOKING, order.getOrderId()));
-                                notifyDataSetChanged();
-                                v.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                //finalConvertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));
+                                //notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         });

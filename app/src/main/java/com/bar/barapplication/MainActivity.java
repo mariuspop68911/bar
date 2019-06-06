@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
     @Override
     protected void onResume() {
         super.onResume();
-        setTitle("");
+        setTitle("NoComment Pizza");
     }
 
     @Override
