@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:alpha="50"
     android:background="@drawable/list_view_yellow"
     android:gravity="center"
     android:orientation="horizontal">
@@ -14,7 +15,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
+        android:layout_weight="0.5"
         android:orientation="vertical">
 
         <TextView
@@ -27,7 +28,7 @@
             android:id="@+id/client_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
             android:text="Andrei"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -37,7 +38,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.5"
         android:orientation="vertical">
 
         <TextView
@@ -50,7 +51,7 @@
             android:id="@+id/order_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
             android:text="158"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -59,7 +60,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.5"
         android:orientation="vertical">
 
         <TextView
@@ -72,7 +73,7 @@
             android:id="@+id/order_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
             android:text="Not ready"
             android:textSize="24sp"
             android:textStyle="bold" />

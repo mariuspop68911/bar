@@ -8,9 +8,14 @@
         android:id="@+id/edit"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Nume client"
-        android:gravity="center"/>
+        android:layout_marginRight="20dp"
+        android:focusable="auto"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="true"
+        android:gravity="center"
+        android:hint="Nume client" />
 
     <Button
         android:id="@+id/order_dialog_button"
