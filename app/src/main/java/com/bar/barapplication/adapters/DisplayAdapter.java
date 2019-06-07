@@ -62,7 +62,7 @@ public class DisplayAdapter extends ArrayAdapter<Order> implements View.OnClickL
         if (order.getStatus() == Constants.ORDER_CREATED) {
             status = "Nepreluata";
         } else if (order.getStatus() == Constants.ORDER_COOKING) {
-            status = "In Pregatire";
+            status = "La cuptor";
         } else if (order.getStatus() == Constants.ORDER_READY) {
             status = "Pregatita";
         } else if (order.getStatus() == Constants.ORDER_DELIVERED) {
@@ -74,7 +74,7 @@ public class DisplayAdapter extends ArrayAdapter<Order> implements View.OnClickL
         if (order.getStatus() == Constants.ORDER_COOKING) {
             convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_yellow));}
         else if (order.getStatus() == Constants.ORDER_READY) {
-            convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));}
+            convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_red));}
         viewHolder.orderStatus.setText(status);
         viewHolder.orderNumber.setText(String.valueOf(order.getOrderNumber()));
         return convertView;

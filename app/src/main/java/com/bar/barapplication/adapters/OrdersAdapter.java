@@ -111,7 +111,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> implements View.OnClickLi
         if (order.getStatus() == Constants.ORDER_CREATED) {
             status = "Nepreluata";
         } else if (order.getStatus() == Constants.ORDER_COOKING) {
-            status = "In Pregatire";
+            status = "La cuptor";
         } else if (order.getStatus() == Constants.ORDER_READY) {
             status = "Pregatita";
         } else if (order.getStatus() == Constants.ORDER_DELIVERED) {
