@@ -13,4 +13,6 @@ public class Constants {
     public static final String APP_ROLE_KITCHEN = "app.role.kitchen";
     public static final String APP_ROLE_DISPLAY = "app.role.display";
 
+    public static final int WEB_API_INTERVAL = 1;
+
 }

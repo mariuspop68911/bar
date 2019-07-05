@@ -48,7 +48,7 @@ public class DisplayActivity extends AppCompatActivity implements OnOrdersReceiv
                 WebManager.requestOrdersByStatus(onAllOrdersReceived, Constants.ORDER_READY);
             }
         };
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0,1, TimeUnit.SECONDS);
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0,Constants.WEB_API_INTERVAL, TimeUnit.SECONDS);
     }
 
     @Override

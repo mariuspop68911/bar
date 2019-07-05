@@ -57,47 +57,43 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
 
         final View result;
 
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.edit_product_item, parent, false);
-            viewHolder.picture = convertView.findViewById(R.id.picture);
-            viewHolder.name = convertView.findViewById(R.id.name);
-            viewHolder.price = convertView.findViewById(R.id.price);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final Dialog dialog = new Dialog(mContext);
-                    dialog.setContentView(R.layout.delete_dialog);
-                    dialog.setTitle("Delete product");
+        viewHolder = new ViewHolder();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        convertView = inflater.inflate(R.layout.edit_product_item, parent, false);
+        viewHolder.picture = convertView.findViewById(R.id.picture);
+        viewHolder.name = convertView.findViewById(R.id.name);
+        viewHolder.price = convertView.findViewById(R.id.price);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.delete_dialog);
+                dialog.setTitle("Delete product");
 
-                    Button yes = dialog.findViewById(R.id.yes);
-                    yes.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            DeleteProductBody deleteProductBody = new DeleteProductBody();
-                            deleteProductBody.setId(product.getId());
-                            WebManager.deleteProduct(deleteProductBody);
-                            dataSet.remove(product);
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        }
-                    });
-                    Button no = dialog.findViewById(R.id.no);
-                    no.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                }
-            });
+                Button yes = dialog.findViewById(R.id.yes);
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DeleteProductBody deleteProductBody = new DeleteProductBody();
+                        deleteProductBody.setId(product.getId());
+                        WebManager.deleteProduct(deleteProductBody);
+                        dataSet.remove(product);
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
+                Button no = dialog.findViewById(R.id.no);
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
 
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        convertView.setTag(viewHolder);
 
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
