@@ -43,7 +43,6 @@ public class DisplayAdapter extends ArrayAdapter<Order> implements View.OnClickL
 
         final View result;
 
-        if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.display_order_item, parent, false);
@@ -53,9 +52,7 @@ public class DisplayAdapter extends ArrayAdapter<Order> implements View.OnClickL
             convertView.setTag(viewHolder);
             convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_green));
 
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+
 
         viewHolder.clientName.setText(order.getClientName());
         String status = "Not ready";
