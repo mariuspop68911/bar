@@ -9,15 +9,9 @@
     android:padding="5dp"
     android:gravity="center">
 
-    <ImageView android:id="@+id/picture"
-        android:layout_width="0dp"
-        android:layout_weight="0.2"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/pizza"/>
-
     <TextView android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.4"
         android:layout_height="match_parent"
         android:text="Pizza cu mere"
         android:layout_marginStart="5dp"
@@ -41,19 +35,13 @@
         android:layout_marginBottom="3dp"
         android:gravity="start|center_vertical"
         android:text="RON"/>
-
     <ImageView
-        android:id="@+id/ingrediente_button"
+        android:id="@+id/checked"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:layout_gravity="end|center_vertical"
-        app:srcCompat="@drawable/ic_apps_black_24dp"/>
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:layout_gravity="end|center_vertical"
-        app:srcCompat="@drawable/trash"/>
+        app:srcCompat="@drawable/ic_check_black_24dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

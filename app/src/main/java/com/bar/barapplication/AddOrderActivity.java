@@ -34,8 +34,10 @@ public class AddOrderActivity extends AppCompatActivity implements OnProductsRec
 
     @Override
     public void onAllProductsReceived(ArrayList<Product> products) {
-        ProductsAdapter productsAdapter = new ProductsAdapter(products,this, this);
-        listView.setAdapter(productsAdapter);
+        if(products!= null && !products.isEmpty()) {
+            ProductsAdapter productsAdapter = new ProductsAdapter(products, this, this);
+            listView.setAdapter(productsAdapter);
+        }
     }
 
     @Override

@@ -2,38 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/ingredienteTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Modificare Meniu"
+        android:text="Selecteaza Ingrediente"
         android:textSize="25sp"
         android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/product_list"
+        android:id="@+id/ingrediente_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/ingredienteTitle"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
-        android:layout_below="@+id/title"
         android:padding="16dp" />
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/salveazaIngredient"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/list_view_green"
+        android:text="Salveaza"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

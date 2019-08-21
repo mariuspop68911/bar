@@ -18,6 +18,7 @@ import com.bar.barapplication.AddOrderView;
 import com.bar.barapplication.MainActivity;
 import com.bar.barapplication.R;
 import com.bar.barapplication.models.OrderBody;
+import com.bar.barapplication.models.OrderBodyItem;
 import com.bar.barapplication.models.Product;
 import com.bar.barapplication.web.WebManager;
 import com.google.gson.Gson;
@@ -35,6 +36,7 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
     private static class ViewHolder {
         TextView name;
         TextView quantity;
+        TextView mesaj;
     }
 
     public void setDataSet(List<Product> dataSet) {
@@ -72,13 +74,17 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
     private void order(String clientName) {
         OrderBody orderBody = new OrderBody();
         orderBody.setClientName(clientName);
-        ArrayList<Integer> integers = new ArrayList<>();
+        ArrayList<OrderBodyItem> items = new ArrayList<>();
         for (Product orderedProduct : dataSet) {
             for (int i = 1; i <= orderedProduct.getQuantity(); i++) {
-                integers.add(orderedProduct.getId());
+                OrderBodyItem orderBodyItem = new OrderBodyItem();
+                orderBodyItem.setIngredientsIds(new ArrayList<Integer>());
+                orderBodyItem.setId(orderedProduct.getId());
+                orderBodyItem.setExtraOptiuni(orderedProduct.getMesaj());
+                items.add(orderBodyItem);
             }
         }
-        orderBody.setItemIds(integers);
+        orderBody.setOrderBodyItem(items);
         WebManager.createOrderPost(orderBody);
                 /*Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);*/
@@ -103,6 +109,7 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
             convertView = inflater.inflate(R.layout.ordered_product_item, parent, false);
             viewHolder.quantity = convertView.findViewById(R.id.quantity);
             viewHolder.name = convertView.findViewById(R.id.name);
+            viewHolder.mesaj = convertView.findViewById(R.id.mesaj);
 
             convertView.setTag(viewHolder);
         } else {
@@ -112,6 +119,8 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
         viewHolder.quantity.setText("x" + product.getQuantity());
+        viewHolder.mesaj.setText(product.getMesaj());
+
         return convertView;
     }
 }

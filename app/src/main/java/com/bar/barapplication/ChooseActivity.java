@@ -19,18 +19,25 @@ public class ChooseActivity extends AppCompatActivity {
         context = this;
         String appRole = PreferencesManager.getStringFromPrefs(this, Constants.APP_ROLE);
         if (appRole != null) {
-            if (appRole.equals(Constants.APP_ROLE_BAR)) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else if (appRole.equals(Constants.APP_ROLE_KITCHEN)) {
-                Intent intent = new Intent(this, KitchenActivity.class);
-                startActivity(intent);
-                finish();
-            } else if (appRole.equals(Constants.APP_ROLE_DISPLAY)) {
-                Intent intent = new Intent(this, DisplayActivity.class);
-                startActivity(intent);
-                finish();
+            switch (appRole) {
+                case Constants.APP_ROLE_BAR: {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                }
+                case Constants.APP_ROLE_KITCHEN: {
+                    Intent intent = new Intent(this, KitchenActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                }
+                case Constants.APP_ROLE_DISPLAY: {
+                    Intent intent = new Intent(this, DisplayActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                }
             }
         }
 

@@ -2,6 +2,8 @@ package com.bar.barapplication.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Product {
 
     @SerializedName("Id")
@@ -13,6 +15,9 @@ public class Product {
     @SerializedName("Price")
     private double price;
     private int quantity;
+    @SerializedName("Ingredients")
+    private ArrayList<Ingredient> ingredients;
+    private String mesaj;
 
     public int getId() {
         return id;
@@ -52,5 +57,21 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String getMesaj() {
+        return mesaj;
+    }
+
+    public void setMesaj(String mesaj) {
+        this.mesaj = mesaj;
     }
 }

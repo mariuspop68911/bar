@@ -1,18 +1,22 @@
 package com.bar.barapplication.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class OrderBody {
 
-    private ArrayList<Integer> ItemIds = new ArrayList<>();
+    @SerializedName("Items")
+    private ArrayList<OrderBodyItem> orderBodyItems;
+    @SerializedName("ClientName")
     private String ClientName;
 
-    public ArrayList<Integer> getItemIds() {
-        return ItemIds;
+    public ArrayList<OrderBodyItem> getOrderBodyItem() {
+        return orderBodyItems;
     }
 
-    public void setItemIds(ArrayList<Integer> itemIds) {
-        ItemIds = itemIds;
+    public void setOrderBodyItem(ArrayList<OrderBodyItem> orderBodyItems) {
+        this.orderBodyItems = orderBodyItems;
     }
 
     public String getClientName() {
@@ -22,4 +26,5 @@ public class OrderBody {
     public void setClientName(String clientName) {
         ClientName = clientName;
     }
+
 }

@@ -44,14 +44,14 @@ public class Utils {
             if (two.get(i).getStatus() != one.get(i).getStatus()) {
                 return false;
             }
-
-            for (int j = 0; j < two.get(i).getProductIds().length; j++) {
-                if (two.get(i).getProductIds()[j] != one.get(i).getProductIds()[j]) {
-                    return false;
+            if(two.get(i).getProductIds() != null) {
+                for (int j = 0; j < two.get(i).getProductIds().length; j++) {
+                    if (!two.get(i).getProductIds()[j].equals(one.get(i).getProductIds()[j])) {
+                        return false;
+                    }
                 }
-
             }
-            if (!two.get(i).getClientName().equals(one.get(i).getClientName())) {
+            if (two.get(i).getClientName() != null && !two.get(i).getClientName().equals(one.get(i).getClientName())) {
                 return false;
             }
             if (two.get(i).getOrderNumber() != one.get(i).getOrderNumber()) {

@@ -83,8 +83,10 @@ public class EditMenyActivity extends AppCompatActivity implements OnProductsRec
 
     @Override
     public void onAllProductsReceived(ArrayList<Product> products) {
-        productsAdapter = new EditProductsAdapter(products, context, this);
-        listView.setAdapter(productsAdapter);
+        if(products!=null && !products.isEmpty()) {
+            productsAdapter = new EditProductsAdapter(products, context, this);
+            listView.setAdapter(productsAdapter);
+        }
     }
 
     @Override

@@ -2,20 +2,20 @@ package com.bar.barapplication.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Order {
 
     @SerializedName("Id")
     private int orderId;
     @SerializedName("Number")
     private int orderNumber;
-    @SerializedName("MenuItems")
-    private Integer[] productIds;
     @SerializedName("ClientName")
     private String clientName;
     @SerializedName("Status")
     private int status;
     @SerializedName("Details")
-    private OrderDetail[] details;
+    private ArrayList<OrderDetail> details;
     @SerializedName("Price")
     private double price;
 
@@ -36,11 +36,17 @@ public class Order {
     }
 
     public Integer[] getProductIds() {
-        return productIds;
-    }
+        ArrayList<Integer> productIds = new ArrayList<>();
+        for (OrderDetail detail : details) {
+            productIds.add(detail.getItemId());
+        }
+        Integer[] ret = new Integer[productIds.size()];
+        for (int i=0; i < ret.length; i++)
+        {
+            ret[i] = productIds.get(i);
+        }
 
-    public void setProductIds(Integer[]productIds) {
-        this.productIds = productIds;
+        return ret;
     }
 
     public String getClientName() {
@@ -59,11 +65,11 @@ public class Order {
         this.status = status;
     }
 
-    public OrderDetail[] getDetails() {
+    public ArrayList<OrderDetail> getDetails() {
         return details;
     }
 
-    public void setDetails(OrderDetail[] details) {
+    public void setDetails(ArrayList<OrderDetail> details) {
         this.details = details;
     }
 

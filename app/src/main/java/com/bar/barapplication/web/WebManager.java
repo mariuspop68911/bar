@@ -3,10 +3,15 @@ package com.bar.barapplication.web;
 import android.util.Log;
 
 import com.bar.barapplication.Constants;
+import com.bar.barapplication.models.AddIngredientBody;
+import com.bar.barapplication.models.AddPizzaIngredientBody;
 import com.bar.barapplication.models.DeleteProductBody;
+import com.bar.barapplication.models.Ingredient;
+import com.bar.barapplication.models.IngredientsResponse;
 import com.bar.barapplication.models.OrderBody;
 import com.bar.barapplication.models.OrderResponse;
 import com.bar.barapplication.models.Product;
+import com.bar.barapplication.models.ProductByIdResponse;
 import com.bar.barapplication.models.ProductResponse;
 import com.bar.barapplication.models.StatusBody;
 
@@ -49,7 +54,11 @@ public class WebManager {
         call.enqueue(new Callback<OrderResponse>() {
             @Override
             public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
-                onOrdersReceived.onAllOrdersReceived(response.body().getOrders());
+                if(response.body() != null) {
+                    onOrdersReceived.onAllOrdersReceived(response.body().getOrders());
+                } else {
+                    onOrdersReceived.onAllOrdersReceived(null);
+                }
             }
 
             @Override
@@ -84,11 +93,14 @@ public class WebManager {
 
                 if(response.isSuccessful()) {
                     Log.i("adfasda", "post submitted to API." + response.body().toString());
+                }else {
+                    Log.e("adfasda", "post submitt ederror to API.");
                 }
             }
 
             @Override
             public void onFailure(Call<OrderBody> call, Throwable t) {
+                Log.e("adfasda", "error");
             }
         });
     }
@@ -141,6 +153,122 @@ public class WebManager {
             @Override
             public void onFailure(Call<StatusBody> call, Throwable t) {
                 Log.i("adfasda", "post error ");
+            }
+        });
+    }
+
+    public static void addIngredient(Ingredient ingredient) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        AddIngredientBody addIngredientBody = new AddIngredientBody(ingredient.getNume(), ingredient.getPrice());
+        service.addIngredient(addIngredientBody).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                if(response.isSuccessful()) {
+                    Log.i("adfasda", "post submitted to API.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+
+    public static void addPizzaIngredient(AddPizzaIngredientBody addPizzaIngredientBody) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        service.addPizzaIngredient(addPizzaIngredientBody).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                if(response.isSuccessful()) {
+                    Log.i("adfasda", "post submitted to API.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+
+    public static void requestIngredients(final OnIngredientsReceived onIngredientsReceived) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<IngredientsResponse> call = service.getAllIngredients();
+
+        call.enqueue(new Callback<IngredientsResponse>() {
+            @Override
+            public void onResponse(Call<IngredientsResponse> call, Response<IngredientsResponse> response) {
+                if(response.body() != null) {
+                    onIngredientsReceived.onAllIngredientsReceived(response.body().getIngredients());
+                } else {
+                    onIngredientsReceived.onAllIngredientsReceived(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientsResponse> call, Throwable t) {
+                onIngredientsReceived.onAllIngredientsReceived(null);
+            }
+        });
+    }
+
+    public static void requestIngredientsById(int id, final OnIdIngredientsReceived onIdIngredientsReceived) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<IngredientsResponse> call = service.getIngredientsById(id);
+
+        call.enqueue(new Callback<IngredientsResponse>() {
+            @Override
+            public void onResponse(Call<IngredientsResponse> call, Response<IngredientsResponse> response) {
+                if(response.body() != null) {
+                    onIdIngredientsReceived.onIdIngredientsReceived(response.body().getIngredients());
+                } else {
+                    onIdIngredientsReceived.onIdIngredientsReceived(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientsResponse> call, Throwable t) {
+                onIdIngredientsReceived.onIdIngredientsReceived(null);
+            }
+        });
+    }
+
+    public static void deleteIngredient(int id) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<Void> call = service.deleteIngredient(id);
+
+        call.enqueue(new Callback<Void>() {
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("adfasda", "delete submitted to API.");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public static void requestProductById(int id, final OnProductByIdReceived onProductByIdReceived) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<ProductByIdResponse> call = service.getProductById(id);
+
+        call.enqueue(new Callback<ProductByIdResponse>() {
+            @Override
+            public void onResponse(Call<ProductByIdResponse> call, Response<ProductByIdResponse> response) {
+                if(response.body() != null) {
+                    onProductByIdReceived.onProductByIdReceived(response.body().getProduct());
+                } else {
+                    onProductByIdReceived.onProductByIdReceived(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductByIdResponse> call, Throwable t) {
+                onProductByIdReceived.onProductByIdReceived(null);
             }
         });
     }

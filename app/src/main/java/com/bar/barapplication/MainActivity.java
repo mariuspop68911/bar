@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
             Intent intent = new Intent(this, EditMenyActivity.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_settings_ingrediente) {
+            Intent intent = new Intent(this, EditIngredienteActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

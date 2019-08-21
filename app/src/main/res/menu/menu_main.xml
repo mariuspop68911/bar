@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="Modifica Meniu"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings_ingrediente"
+        android:orderInCategory="100"
+        android:title="Modifica Ingrediente"
+        app:showAsAction="never" />
 </menu>
