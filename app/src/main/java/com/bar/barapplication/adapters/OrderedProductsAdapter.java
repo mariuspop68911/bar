@@ -103,7 +103,7 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
 
         final View result;
 
-        if (convertView == null) {
+
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.ordered_product_item, parent, false);
@@ -112,9 +112,7 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
             viewHolder.mesaj = convertView.findViewById(R.id.mesaj);
 
             convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+
 
         //viewHolder.picture.setText(product.getImageUrl());
         viewHolder.name.setText(product.getName());
