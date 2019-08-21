@@ -151,7 +151,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
 
                         try {
                             for (Product orderedProduct : orderedProducts) {
-                                String message = (cu.isEmpty() ? "" : " Adauga:" + cu) + (fara.isEmpty() ? "" : " Scoate:" + fara);
+                                String message = (cu.isEmpty() ? "" : " Extra:" + cu) + (fara.isEmpty() ? "" : " Fara:" + fara);
                                 //orderedProduct.setName(orderedProduct.getName() + (cu.isEmpty()? "" :  " Adauga:" + cu) + (fara.isEmpty()? "" :  " Scoate:" + fara));
                                 product.setMesaj(message);
 
@@ -171,7 +171,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
                             newProduct.setIngredients(product.getIngredients());
                             newProduct.setPrice(product.getPrice());
                             newProduct.setQuantity(1);
-                            String message = (cu.isEmpty() ? "" : " Adauga:" + cu) + (fara.isEmpty() ? "" : " Scoate:" + fara);
+                            String message = (cu.isEmpty() ? "" : " Extra:" + cu) + (fara.isEmpty() ? "" : " Fara:" + fara);
                             newProduct.setMesaj(message);
                             newProduct.setName(product.getName());
                             //newProduct.setName(product.getName() + (cu.isEmpty()? "" :  " Adauga:" + cu) + (fara.isEmpty()? "" :  " Scoate:" + fara));

@@ -1,5 +1,7 @@
 package com.bar.barapplication.models;
 
+import android.content.ClipData;
+
 import com.google.gson.annotations.SerializedName;
 
 public class OrderDetail {
@@ -9,6 +11,12 @@ public class OrderDetail {
     private int count;
     @SerializedName("ExtraOptiuni")
     private String extraOptiuni;
+    @SerializedName("Item")
+    private Product item;
+
+    public Product getItem() {
+        return item;
+    }
 
     public int getItemId() {
         return itemId;

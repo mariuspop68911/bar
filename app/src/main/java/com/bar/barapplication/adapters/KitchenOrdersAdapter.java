@@ -20,7 +20,9 @@ import com.bar.barapplication.models.StatusBody;
 import com.bar.barapplication.web.WebManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.OnClickListener {
@@ -71,18 +73,25 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> implements View.On
         viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
         viewHolder.layout = convertView.findViewById(R.id.orderDetailLayout);
         viewHolder.status = convertView.findViewById(R.id.status);
+        HashMap<String, Integer> pizzaGroup = new HashMap<String, Integer>();
+
         for (OrderDetail detail : order.getDetails()) {
-            for (Product product : products) {
-                if (product.getId() == detail.getItemId()) {
-                    TextView textView = new TextView(mContext);
-                    textView.setText(product.getName() + " x" + detail.getCount());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(20, 0, 0, 0);
-                    textView.setLayoutParams(params);
-                    textView.setTypeface(null, Typeface.BOLD);
-                    viewHolder.layout.addView(textView);
-                }
+            String pizzaString = detail.getItem().getName() + " " + detail.getExtraOptiuni();
+            if (pizzaGroup.containsKey(pizzaString)) {
+                Integer count = pizzaGroup.get(pizzaString);
+                pizzaGroup.put(pizzaString, ++count);
+            } else {
+                pizzaGroup.put(pizzaString, 1);
             }
+        }
+        for (Map.Entry me : pizzaGroup.entrySet()){
+            TextView textView = new TextView(mContext);
+            textView.setText( me.getValue() + " x "+ me.getKey());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(20, 0, 0, 0);
+            textView.setLayoutParams(params);
+            textView.setTypeface(null, Typeface.BOLD);
+            viewHolder.layout.addView(textView);
         }
         if (order.getStatus() == Constants.ORDER_CREATED) {
             convertView.setBackground(mContext.getResources().getDrawable(R.drawable.list_view_red));

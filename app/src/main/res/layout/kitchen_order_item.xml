@@ -20,8 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,6 +33,7 @@
                 android:id="@+id/order_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:text="158"
                 android:textSize="15sp"
@@ -42,29 +42,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/orderDetailLayout"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginBottom="10dp"
-            android:gravity="start"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Detalii Comanda" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:layout_marginStart="10dp"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -75,14 +56,32 @@
 
             <TextView
                 android:id="@+id/status"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
                 android:text="Preluata"
                 android:textSize="15sp"
-                android:gravity="center"
                 android:textStyle="bold" />
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/orderDetailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
+            android:gravity="start"
+            android:orientation="vertical"/>
     </LinearLayout>
 
 </LinearLayout>
