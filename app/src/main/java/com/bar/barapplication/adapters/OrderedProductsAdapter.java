@@ -37,6 +37,8 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
         TextView name;
         TextView quantity;
         TextView mesaj;
+        ImageView minus;
+
     }
 
     public void setDataSet(List<Product> dataSet) {
@@ -104,14 +106,32 @@ public class OrderedProductsAdapter extends ArrayAdapter<Product> implements Vie
         final View result;
 
 
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.ordered_product_item, parent, false);
-            viewHolder.quantity = convertView.findViewById(R.id.quantity);
-            viewHolder.name = convertView.findViewById(R.id.name);
-            viewHolder.mesaj = convertView.findViewById(R.id.mesaj);
+        viewHolder = new ViewHolder();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        convertView = inflater.inflate(R.layout.ordered_product_item, parent, false);
+        viewHolder.quantity = convertView.findViewById(R.id.quantity);
+        viewHolder.name = convertView.findViewById(R.id.name);
+        viewHolder.mesaj = convertView.findViewById(R.id.mesaj);
+        viewHolder.minus = convertView.findViewById(R.id.minus);
 
-            convertView.setTag(viewHolder);
+        viewHolder.minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (Product orderedProduct : dataSet) {
+                    if (product.getId() == orderedProduct.getId() && orderedProduct.getQuantity() > 1) {
+                        orderedProduct.setQuantity(product.getQuantity() - 1);
+                        notifyDataSetChanged();
+                        return;
+                    }
+                }
+
+                dataSet.remove(product);
+                notifyDataSetChanged();
+            }
+        });
+
+        convertView.setTag(viewHolder);
 
 
         //viewHolder.picture.setText(product.getImageUrl());

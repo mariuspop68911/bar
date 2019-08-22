@@ -193,25 +193,6 @@ public class ProductsAdapter extends ArrayAdapter<Product> implements View.OnCli
             }
         });
 
-        viewHolder.remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for (Product orderedProduct : orderedProducts) {
-                    if (product.getId() == orderedProduct.getId() && orderedProduct.getQuantity() > 1) {
-                        orderedProduct.setQuantity(product.getQuantity() - 1);
-                        orderedProductsAdapter.setDataSet(orderedProducts);
-                        orderedProductsAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }
-
-                orderedProducts.remove(product);
-                orderedProductsAdapter.setDataSet(orderedProducts);
-                orderedProductsAdapter.notifyDataSetChanged();
-            }
-        });
-
         convertView.setTag(viewHolder);
 
         //viewHolder.picture.setText(product.getImageUrl());
