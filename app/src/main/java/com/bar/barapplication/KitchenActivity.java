@@ -16,9 +16,12 @@ import com.bar.barapplication.models.Product;
 import com.bar.barapplication.web.OnOrdersReceived;
 import com.bar.barapplication.web.OnProductsReceived;
 import com.bar.barapplication.web.WebManager;
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class KitchenActivity extends AppCompatActivity implements OnOrdersReceived.OnAllOrdersReceived, OnProductsReceived {
@@ -30,12 +33,17 @@ public class KitchenActivity extends AppCompatActivity implements OnOrdersReceiv
     private KitchenOrdersAdapter adapter;
     private TextView emptyElement;
     private ArrayList<Order> orders;
-
+    ScheduledFuture<?> scheduledFuture;
+    boolean productsReceived = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen);
+        AppUpdater appUpdater = new AppUpdater(this)
+                .setUpdateJSON("https://www.nivasoft.ro/downloads/appUpdate.json")
+                .setUpdateFrom(UpdateFrom.JSON);
 
+        appUpdater.start();
         context = this;
         onOrdersReceived = this;
         ordersList = findViewById(R.id.kitchen_orders_list);
@@ -43,20 +51,46 @@ public class KitchenActivity extends AppCompatActivity implements OnOrdersReceiv
         WebManager.requestProducts(this);
     }
 
-    private void pool() {
+    protected void onPause() {
+        super.onPause();
+        pool(false);
+    }
+    protected void onResume() {
+        super.onResume();
+        if (productsReceived)
+            pool(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pool(false);
+    }
+
+    private void pool(boolean x) {
+        if (x){
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 WebManager.requestOrders(onOrdersReceived);
             }
         };
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, Constants.WEB_API_INTERVAL, TimeUnit.SECONDS);
+            scheduledFuture = Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, Constants.WEB_API_INTERVAL, TimeUnit.SECONDS);}
+        else{
+            scheduledFuture.cancel(true);
+        }
     }
 
     @Override
     public void onAllProductsReceived(ArrayList<Product> products) {
         this.products = products;
-        pool();
+        productsReceived = true;
+        pool(true);
+    }
+
+    @Override
+    public Context GetCallingContext() {
+        return this;
     }
 
     @Override

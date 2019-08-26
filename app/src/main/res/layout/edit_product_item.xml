@@ -49,11 +49,13 @@
         android:layout_weight="0.1"
         android:layout_gravity="end|center_vertical"
         app:srcCompat="@drawable/ic_apps_black_24dp"/>
+
     <ImageView
+        android:id="@+id/delete_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
         android:layout_gravity="end|center_vertical"
-        app:srcCompat="@drawable/trash"/>
+        android:layout_weight="0.1"
+        app:srcCompat="@drawable/trash" />
 
 </LinearLayout>
