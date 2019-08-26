@@ -1,6 +1,8 @@
 package com.bar.barapplication.web;
 
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.bar.barapplication.Constants;
 import com.bar.barapplication.models.AddIngredientBody;
@@ -63,7 +65,11 @@ public class WebManager {
 
             @Override
             public void onFailure(Call<OrderResponse> call, Throwable t) {
+
                 onOrdersReceived.onAllOrdersReceived(null);
+                Toast toast = Toast.makeText(onOrdersReceived.GetCallingContext() ,"Eroare de conectare, verificati conexiune la internet", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
         });
     }
@@ -81,6 +87,9 @@ public class WebManager {
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 onProductsReceived.onAllProductsReceived(null);
+                Toast toast = Toast.makeText(onProductsReceived.GetCallingContext() ,"Eroare de conectare, verificati conexiune la internet", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
         });
     }

@@ -40,6 +40,7 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
         TextView name;
         TextView price;
         ImageView ingredients;
+        ImageView delete;
     }
 
     public EditProductsAdapter(List<Product> data, Context context, EditProductsView view) {
@@ -68,7 +69,8 @@ public class EditProductsAdapter extends ArrayAdapter<Product> implements View.O
         viewHolder.name = convertView.findViewById(R.id.name);
         viewHolder.price = convertView.findViewById(R.id.price);
         viewHolder.ingredients = convertView.findViewById(R.id.ingrediente_button);
-        convertView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.delete = convertView.findViewById(R.id.delete_button);
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(mContext);

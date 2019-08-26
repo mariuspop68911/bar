@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.util.Pools;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,11 +16,14 @@ import com.bar.barapplication.adapters.OrdersAdapter;
 import com.bar.barapplication.models.Order;
 import com.bar.barapplication.web.OnOrdersReceived;
 import com.bar.barapplication.web.WebManager;
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements OnOrdersReceived.OnAllOrdersReceived {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
     private ListView ordersList;
     private static OnOrdersReceived.OnAllOrdersReceived onAllOrdersReceived;
     private ArrayList<Order> orders;
+    ScheduledFuture<?> scheduledFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +56,32 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
 
             }
         });
+        AppUpdater appUpdater = new AppUpdater(this)
+                .setUpdateJSON("https://www.nivasoft.ro/downloads/appUpdate.json")
+                .setUpdateFrom(UpdateFrom.JSON);
 
-        pool();
+        appUpdater.start();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setTitle("NoComment Pizza");
+        pool(true);
+
+    }
+    protected void onPause() {
+        super.onPause();
+        pool(false);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pool(false);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -85,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
     }
 
     @Override
+    public Context GetCallingContext() {
+        return this;
+    }
+
+    @Override
     public void onAllOrdersReceived(ArrayList<Order> orders) {
         Utils utils = new Utils();
         if (orders != null && !utils.equalLists(orders, this.orders)) {
@@ -104,13 +130,17 @@ public class MainActivity extends AppCompatActivity implements OnOrdersReceived.
         }
     }
 
-    private void pool() {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                WebManager.requestOrders(onAllOrdersReceived);
-            }
-        };
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, Constants.WEB_API_INTERVAL, TimeUnit.SECONDS);
+    private void pool(boolean x) {
+        if (x) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    WebManager.requestOrders(onAllOrdersReceived);
+                }
+            };
+            scheduledFuture = Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, Constants.WEB_API_INTERVAL, TimeUnit.SECONDS);
+        } else {
+            scheduledFuture.cancel(true);
+        }
     }
 }

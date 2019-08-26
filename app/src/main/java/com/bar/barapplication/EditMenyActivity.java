@@ -82,6 +82,11 @@ public class EditMenyActivity extends AppCompatActivity implements OnProductsRec
     }
 
     @Override
+    public Context GetCallingContext() {
+        return this;
+    }
+
+    @Override
     public void onAllProductsReceived(ArrayList<Product> products) {
         if(products!=null && !products.isEmpty()) {
             productsAdapter = new EditProductsAdapter(products, context, this);

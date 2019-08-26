@@ -1,5 +1,6 @@
 package com.bar.barapplication;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,11 @@ public class AddOrderActivity extends AppCompatActivity implements OnProductsRec
 
         WebManager.requestProducts(this);
 
+    }
+
+    @Override
+    public Context GetCallingContext() {
+        return this;
     }
 
     @Override
